@@ -74,6 +74,7 @@ class PostListViewController: UIViewController {
             cell.createdLabel.text = post.createDateText
             cell.descriptionLabel.text = post.titleText
             cell.postImageView.load(urlString: post.thumbnailUrl)
+            cell.unreadStatus.isHidden = post.read
         })
         
         DispatchQueue.main.async {
@@ -87,11 +88,10 @@ class PostListViewController: UIViewController {
 extension PostListViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Cell tapped")
+        redditPostVM.postRead(position: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        print(indexPath.row)
         if !redditPostVM.isLoading && indexPath.row == self.dataSource.getPostCount() - 5 {
             redditPostVM.getMoreRedditPostsData()
         }

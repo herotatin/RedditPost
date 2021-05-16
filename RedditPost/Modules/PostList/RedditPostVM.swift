@@ -102,7 +102,8 @@ class RedditPostVM : NSObject {
                                        imageUrl: post.imageURL,
                                        thumbnailUrl: post.thumbnailURL,
                                        titleText: post.title,
-                                       commentsText: "\(post.commentsCount) comments")
+                                       commentsText: "\(post.commentsCount) comments",
+                                       read : post.read)
     }
     
     func getCellViewModel( at indexPath: IndexPath ) -> RedditPostCellViewModel {
@@ -120,12 +121,21 @@ class RedditPostVM : NSObject {
     
     private func handleResponse( newPosts: [RedditPost] ){
         self.posts.append(contentsOf : newPosts)
-        print(self.posts.count)
         var postsViewModels = [RedditPostCellViewModel]()
         for post in posts {
             postsViewModels.append( createCellViewModel(post: post) )
         }
         self.postCellViewModels = postsViewModels
+    }
+    
+    func postRead(position : Int) {
+        self.posts[position].read = true
+        self.postCellViewModels[position].read = true
+    }
+    
+    func removePost(position : Int) {
+        self.posts.remove(at: position)
+        self.postCellViewModels.remove(at: position) 
     }
 }
 
@@ -136,4 +146,5 @@ struct RedditPostCellViewModel {
     let thumbnailUrl : String
     let titleText: String
     let commentsText: String
+    var read : Bool
 }

@@ -10,4 +10,5 @@ struct RedditPost {
     let id, title, author, imageURL, thumbnailURL : String
     let creationDate : Date
     let commentsCount: Int
+    var read : Bool = false
 }

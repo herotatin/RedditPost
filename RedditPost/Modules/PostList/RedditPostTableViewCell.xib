@@ -68,6 +68,9 @@
                         <state key="normal" title="  Dismiss" image="x.circle" catalog="system">
                             <color key="titleColor" systemColor="labelColor"/>
                         </state>
+                        <connections>
+                            <action selector="dismissMe:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XPP-wA-I8z"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="##### comments" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xpl-cc-CtH">
                         <rect key="frame" x="240" y="202.5" width="136" height="20.5"/>

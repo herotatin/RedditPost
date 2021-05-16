@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hxQ-6J-9qg">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="778"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="redditCell" id="oEI-L0-yRz">
@@ -30,14 +30,33 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7zb-cZ-DPQ">
+                                <rect key="frame" x="0.0" y="822" width="414" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Vor-Zk-Xyi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <state key="normal" title="Dismiss All">
+                                    <color key="titleColor" systemColor="systemOrangeColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissPosts:" destination="BYZ-38-t0r" eventType="touchUpInside" id="flL-QQ-ZqU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="leading" secondItem="hxQ-6J-9qg" secondAttribute="trailing" constant="-414" id="2Ik-h7-nSg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hxQ-6J-9qg" secondAttribute="trailing" id="2s0-D6-vj0"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hxQ-6J-9qg" secondAttribute="bottom" id="5Yi-nm-R2B"/>
+                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="top" secondItem="hxQ-6J-9qg" secondAttribute="bottom" id="7oN-2o-U08"/>
                             <constraint firstItem="hxQ-6J-9qg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FUm-lx-8bL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7zb-cZ-DPQ" secondAttribute="bottom" id="Rf0-AE-d62"/>
+                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="faF-Er-yMj"/>
                             <constraint firstItem="hxQ-6J-9qg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kXr-no-RtG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7zb-cZ-DPQ" secondAttribute="trailing" id="m7h-Sf-2bm"/>
+                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="smx-iE-Gbd"/>
                         </constraints>
                     </view>
                     <connections>
@@ -46,12 +65,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="94"/>
+            <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
         </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

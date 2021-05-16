@@ -3,4 +3,54 @@
    uuid = "6C36AA7C-CDA7-421B-9D8B-1AF0A386DF65"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "761E14B3-B87F-4919-9997-F275F73E7F24"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RedditPost/Modules/PostList/PostListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "callToViewModelForUIUpdate()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "761E14B3-B87F-4919-9997-F275F73E7F24 - 8f4b2bd3dbe13555"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Error) -&gt; () in RedditPost.PostListViewController.callToViewModelForUIUpdate() -&gt; ()"
+                  moduleName = "RedditPost"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JoseOmar/Documents/GitHub/RedditPost/RedditPost/Modules/PostList/PostListViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "495">
+               </Location>
+               <Location
+                  uuid = "761E14B3-B87F-4919-9997-F275F73E7F24 - d7cb45ed8c94b3cf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in closure #2 (Swift.Error) -&gt; () in RedditPost.PostListViewController.callToViewModelForUIUpdate() -&gt; ()"
+                  moduleName = "RedditPost"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/JoseOmar/Documents/GitHub/RedditPost/RedditPost/Modules/PostList/PostListViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

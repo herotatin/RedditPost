@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F2AA37082650485400BB117C /* RedditPostTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA37072650485400BB117C /* RedditPostTableViewDataSource.swift */; };
 		F2AA370D2650683900BB117C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA370C2650683900BB117C /* Date.swift */; };
 		F2AA3714265073DB00BB117C /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AA3713265073DB00BB117C /* UIImage.swift */; };
 		F2D98B7D265017AE002E4C09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D98B7C265017AE002E4C09 /* AppDelegate.swift */; };
@@ -44,7 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F2AA37072650485400BB117C /* RedditPostTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostTableViewDataSource.swift; sourceTree = "<group>"; };
 		F2AA370C2650683900BB117C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F2AA3713265073DB00BB117C /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		F2D98B79265017AE002E4C09 /* RedditPost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditPost.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +104,6 @@
 			isa = PBXGroup;
 			children = (
 				F2D98BCD26502B09002E4C09 /* RedditPostVM.swift */,
-				F2AA37072650485400BB117C /* RedditPostTableViewDataSource.swift */,
 				F2D98B80265017AE002E4C09 /* PostListViewController.swift */,
 				F2D98BDB26503155002E4C09 /* RedditPostTableViewCell.swift */,
 				F2D98BDC26503155002E4C09 /* RedditPostTableViewCell.xib */,
@@ -332,7 +329,6 @@
 				F2D98BC626502287002E4C09 /* APIService.swift in Sources */,
 				F2D98BCE26502B09002E4C09 /* RedditPostVM.swift in Sources */,
 				F2D98BDD26503155002E4C09 /* RedditPostTableViewCell.swift in Sources */,
-				F2AA37082650485400BB117C /* RedditPostTableViewDataSource.swift in Sources */,
 				F2D98BBD26501E27002E4C09 /* RedditPost.swift in Sources */,
 				F2D98B7D265017AE002E4C09 /* AppDelegate.swift in Sources */,
 				F2D98B7F265017AE002E4C09 /* SceneDelegate.swift in Sources */,

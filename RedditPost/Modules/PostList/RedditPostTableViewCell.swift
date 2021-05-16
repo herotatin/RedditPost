@@ -8,7 +8,7 @@
 import UIKit
 
 class RedditPostTableViewCell: UITableViewCell {
-    
+   
     @IBOutlet var unreadStatus: UIView!
     @IBOutlet var authorLabel: UILabel!
     @IBOutlet var createdLabel: UILabel!
@@ -17,7 +17,7 @@ class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet var dismissBtn: UIButton!
     @IBOutlet var commentsLabel: UILabel!
     
-
+    var onDismiss: () -> Void = {}
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,6 +27,11 @@ class RedditPostTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    
+    @IBAction func dismissMe(_ sender: UIButton) {
+        onDismiss()
     }
     
 }

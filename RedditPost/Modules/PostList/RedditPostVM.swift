@@ -11,13 +11,9 @@ import Foundation
 class RedditPostVM : NSObject {
     
     private var apiService : APIService!
-    private var posts: [RedditPost] = [RedditPost]()
     private var nextPostId : String? = ""
-    private(set) var postCellViewModels : [RedditPostCellViewModel]! {
-        didSet {
-            self.bindRedditPostVMToController()
-        }
-    }
+    private var posts: [RedditPost] = [RedditPost]()
+    
     var isLoading: Bool = false {
         didSet {
             self.updateLoadingStatus?()
@@ -30,15 +26,20 @@ class RedditPostVM : NSObject {
         }
     }
     
-    var bindRedditPostVMToController : (() -> ()) = {}
+    private(set) var state = State(posts: []) {
+        didSet {
+            callback(state)
+        }
+    }
+    let callback: (State) -> ()
+    
     var onErrorHandling : ((Error) -> Void)?
     var updateLoadingStatus: (()->())?
     var updateLoadingMore: (()->())?
-    
-    override init() {
-        super.init()
+  
+    init(_ callback: @escaping (State) -> ()) {
         self.apiService =  APIService()
-        getRedditPostsData()
+        self.callback = callback
     }
     
     func getRedditPostsData() {
@@ -94,7 +95,11 @@ class RedditPostVM : NSObject {
         }, offSet : self.nextPostId)
     }
     
-    func createCellViewModel( post: RedditPost ) -> RedditPostCellViewModel {
+    func getCellViewModel( at indexPath: IndexPath ) -> RedditPostCellViewModel {
+        return state.postCellViewModels[indexPath.row]
+    }
+    
+    private func createCellViewModel( post: RedditPost ) -> RedditPostCellViewModel {
         
 
         return RedditPostCellViewModel( authorText: post.author,
@@ -106,17 +111,13 @@ class RedditPostVM : NSObject {
                                        read : post.read)
     }
     
-    func getCellViewModel( at indexPath: IndexPath ) -> RedditPostCellViewModel {
-        return postCellViewModels[indexPath.row]
-    }
-    
     private func processResponse( posts: [RedditPost] ) {
         self.posts = posts // Cache
         var postsViewModels = [RedditPostCellViewModel]()
         for post in posts {
             postsViewModels.append( createCellViewModel(post: post) )
         }
-        self.postCellViewModels = postsViewModels
+        self.state.updateAction = .refresh(postsViewModels)
     }
     
     private func handleResponse( newPosts: [RedditPost] ){
@@ -125,17 +126,22 @@ class RedditPostVM : NSObject {
         for post in posts {
             postsViewModels.append( createCellViewModel(post: post) )
         }
-        self.postCellViewModels = postsViewModels
+        self.state.updateAction = .refresh(postsViewModels)
     }
     
     func postRead(position : Int) {
-        self.posts[position].read = true
-        self.postCellViewModels[position].read = true
+        state.updateAction = .update(IndexPath(row: position, section: 0))
     }
     
-    func removePost(position : Int) {
-        self.posts.remove(at: position)
-        self.postCellViewModels.remove(at: position) 
+    func removePost(_ post : RedditPostCellViewModel) {
+        guard let indexPath = self.state.postCellViewModels.firstIndex(of: post).map({ IndexPath(row: $0, section: 0) }) else {
+          return
+        }
+        state.updateAction = .delete(indexPath)
+    }
+    
+    func removeAll(){
+        self.state.updateAction = .deleteAll
     }
 }
 
@@ -147,4 +153,43 @@ struct RedditPostCellViewModel {
     let titleText: String
     let commentsText: String
     var read : Bool
+}
+
+extension RedditPostCellViewModel: Equatable {
+  static func == (lhs: Self, rhs: Self) -> Bool {
+    return lhs.titleText == rhs.titleText
+  }
+}
+
+struct State {
+    enum EditingAction {
+        case update(IndexPath)
+        case delete(IndexPath)
+        case deleteAll
+        case refresh([RedditPostCellViewModel])
+    }
+    
+    var postCellViewModels: [RedditPostCellViewModel]
+
+    var updateAction: EditingAction {
+        didSet {
+            switch updateAction {
+            case let .refresh(posts):
+                postCellViewModels = posts
+            case let .delete(indexPath):
+                postCellViewModels.remove(at: indexPath.row)
+            case let .update(indexPath):
+                if ( !postCellViewModels[indexPath.row].read) {
+                    postCellViewModels[indexPath.row].read = true
+                }
+            case .deleteAll:
+                self.postCellViewModels.removeAll()
+            }
+        }
+    }
+    
+    init(posts: [RedditPostCellViewModel]) {
+        self.postCellViewModels = posts
+        self.updateAction = .refresh(posts)
+    }
 }

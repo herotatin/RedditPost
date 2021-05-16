@@ -12,9 +12,6 @@ class PostListViewController: UIViewController {
     @IBOutlet var postTableView: UITableView!
     
     private var redditPostVM : RedditPostVM!
-        
-    private var dataSource : RedditPostTableViewDataSource<RedditPostTableViewCell,RedditPostCellViewModel>!
-    
     private let refreshControl = UIRefreshControl()
     private let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
 
@@ -31,8 +28,10 @@ class PostListViewController: UIViewController {
         spinner.color = UIColor.orange
         self.postTableView.tableFooterView = spinner
         self.postTableView.tableFooterView?.isHidden = false
-        postTableView.delegate = self
+        
         callToViewModelForUIUpdate()
+        postTableView.delegate = self
+        postTableView.dataSource = self
     }
     
     @objc func refreshPosts(refreshControl: UIRefreshControl) {
@@ -40,7 +39,32 @@ class PostListViewController: UIViewController {
     }
     
     func callToViewModelForUIUpdate(){
-        self.redditPostVM =  RedditPostVM()
+        self.redditPostVM =  RedditPostVM({ [unowned self] (state) in
+            
+            DispatchQueue.main.async {
+                self.spinner.stopAnimating()
+                self.refreshControl.endRefreshing()
+                switch state.updateAction {
+                   
+                case let .delete(indexPath):
+                    
+                    self.postTableView.beginUpdates()
+                    self.postTableView.deleteRows(at: [indexPath], with: .fade)
+                    self.postTableView.endUpdates()
+                case let .update(indexPath):
+                   
+                    self.postTableView.beginUpdates()
+                    self.postTableView.reloadRows(at: [indexPath], with: .automatic)
+                    self.postTableView.endUpdates()
+                    
+                case .deleteAll:
+                    self.postTableView.reloadData()
+                case .refresh(_):
+                    self.postTableView.reloadData()
+                }
+            }
+        })
+        
         self.redditPostVM.onErrorHandling = { error in
             let alert = UIAlertController(title: "Oppss", message: "Something went wrong", preferredStyle: .alert)
 
@@ -56,31 +80,34 @@ class PostListViewController: UIViewController {
                 self.spinner.startAnimating()
             }
         }
-        
-        self.redditPostVM.bindRedditPostVMToController = {
-            DispatchQueue.main.async {
-                self.spinner.stopAnimating()
-                self.refreshControl.endRefreshing()
-            }
-            self.updateDataSource()
-        }
+        self.redditPostVM.getRedditPostsData()
+    
     }
-   
-    func updateDataSource(){
-            
-        self.dataSource = RedditPostTableViewDataSource(cellIdentifier: "RedditPostCell", posts: self.redditPostVM.postCellViewModels, configureCell: { (cell, post) in
-            cell.authorLabel.text = post.authorText
-            cell.commentsLabel.text = post.commentsText
-            cell.createdLabel.text = post.createDateText
-            cell.descriptionLabel.text = post.titleText
-            cell.postImageView.load(urlString: post.thumbnailUrl)
-            cell.unreadStatus.isHidden = post.read
-        })
-        
-        DispatchQueue.main.async {
-            self.postTableView.dataSource = self.dataSource
-            self.postTableView.reloadData()
+    
+    @IBAction func dismissPosts(_ sender: UIButton) {
+        redditPostVM.removeAll()
+    }
+    
+}
+
+extension PostListViewController : UITableViewDataSource  {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return redditPostVM?.state.postCellViewModels.count ?? 0
+    }
+    
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RedditPostCell", for: indexPath) as! RedditPostTableViewCell
+        let post = redditPostVM.getCellViewModel(at: indexPath)
+        cell.authorLabel.text = post.authorText
+        cell.commentsLabel.text = post.commentsText
+        cell.createdLabel.text = post.createDateText
+        cell.descriptionLabel.text = post.titleText
+        cell.postImageView.load(urlString: post.thumbnailUrl)
+        cell.unreadStatus.isHidden = post.read
+        cell.onDismiss = { [weak self] in
+            self?.redditPostVM.removePost(post)
         }
+        return cell
     }
     
 }
@@ -92,11 +119,14 @@ extension PostListViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if !redditPostVM.isLoading && indexPath.row == self.dataSource.getPostCount() - 5 {
+        if !redditPostVM.isLoading && indexPath.row == redditPostVM.state.postCellViewModels.count - 5 {
             redditPostVM.getMoreRedditPostsData()
         }
     }
-    
+}
+
+protocol PostCellDelegate {
+    func didPressDismiss(_ postId: Int)
 }
 
 

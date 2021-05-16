@@ -24,7 +24,7 @@ class APIService :  NSObject {
         if ((offSet) != nil && offSet != "") {
             getPostStringURL.append("?after=\(offSet!)")
         }
-        print(getPostStringURL)
+        
         let postURL = URL(string: getPostStringURL)!
         URLSession.shared.dataTask(with: postURL) { (data, urlResponse, error) in
             if let error = error {

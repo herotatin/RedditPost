@@ -14,12 +14,23 @@ class PostListViewController: UIViewController {
     private var redditPostVM : RedditPostVM!
         
     private var dataSource : RedditPostTableViewDataSource<RedditPostTableViewCell,RedditPostCellViewModel>!
+    
+    let refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Reddit Top 50"
         self.postTableView.register(UINib(nibName: "RedditPostTableViewCell", bundle: nil), forCellReuseIdentifier: "RedditPostCell")
+       
+        refreshControl.attributedTitle = NSAttributedString(string: "Loading posts")
+        refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+        postTableView.refreshControl = refreshControl
+
         callToViewModelForUIUpdate()
+    }
+    
+    @objc func refreshPosts(refreshControl: UIRefreshControl) {
+        redditPostVM.getRedditPostsData()
     }
     
     func callToViewModelForUIUpdate(){
@@ -35,7 +46,10 @@ class PostListViewController: UIViewController {
             
         }
         self.redditPostVM.bindRedditPostVMToController = {
-           self.updateDataSource()
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
+            self.updateDataSource()
         }
     }
    

@@ -31,4 +31,9 @@ class RedditPostTableViewDataSource<tableCell : UITableViewCell,T> : NSObject, U
         posts.count
     }
 
+    
+    func getPostCount() ->  Int {
+        return posts.count
+    }
+
 }

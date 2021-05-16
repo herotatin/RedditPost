@@ -15,17 +15,23 @@ class PostListViewController: UIViewController {
         
     private var dataSource : RedditPostTableViewDataSource<RedditPostTableViewCell,RedditPostCellViewModel>!
     
-    let refreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
+    private let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Reddit Top 50"
         self.postTableView.register(UINib(nibName: "RedditPostTableViewCell", bundle: nil), forCellReuseIdentifier: "RedditPostCell")
-       
+        
         refreshControl.attributedTitle = NSAttributedString(string: "Loading posts")
         refreshControl.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
         postTableView.refreshControl = refreshControl
-
+        
+        spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: postTableView.bounds.width, height: CGFloat(44))
+        spinner.color = UIColor.orange
+        self.postTableView.tableFooterView = spinner
+        self.postTableView.tableFooterView?.isHidden = false
+        postTableView.delegate = self
         callToViewModelForUIUpdate()
     }
     
@@ -45,8 +51,15 @@ class PostListViewController: UIViewController {
             }
             
         }
+        self.redditPostVM.updateLoadingMore = {
+            DispatchQueue.main.async {
+                self.spinner.startAnimating()
+            }
+        }
+        
         self.redditPostVM.bindRedditPostVMToController = {
             DispatchQueue.main.async {
+                self.spinner.stopAnimating()
                 self.refreshControl.endRefreshing()
             }
             self.updateDataSource()
@@ -76,6 +89,14 @@ extension PostListViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Cell tapped")
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+        if !redditPostVM.isLoading && indexPath.row == self.dataSource.getPostCount() - 5 {
+            redditPostVM.getMoreRedditPostsData()
+        }
+    }
+    
 }
 
 

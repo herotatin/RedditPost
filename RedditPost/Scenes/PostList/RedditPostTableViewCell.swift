@@ -21,11 +21,14 @@ class RedditPostTableViewCell: UITableViewCell {
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var dismissBtn: UIButton!
     @IBOutlet var commentsLabel: UILabel!
+    var post: RedditPostCellViewModel?
     
     var onDismiss: () -> Void = {}
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        postImageView.isUserInteractionEnabled = true
+        postImageView.addGestureRecognizer(tapGestureRecognizer)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,4 +42,16 @@ class RedditPostTableViewCell: UITableViewCell {
         onDismiss()
     }
     
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        guard let urlString = post?.imageUrl,  let url = URL(string: urlString) else {
+          return
+        }
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
 }

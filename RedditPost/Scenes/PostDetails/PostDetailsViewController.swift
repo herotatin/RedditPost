@@ -20,11 +20,11 @@ class PostDetailsViewController: UIViewController {
     }
     
     private func refreshUI() {
+       
+        loadViewIfNeeded()
         postNameLabel.isHidden = false
         descriptionLabel.isHidden = false
         thumbnaiUIImage.isHidden = false
-        
-        loadViewIfNeeded()
         postNameLabel.text = post?.authorText
         descriptionLabel.text = post?.titleText
         
@@ -36,6 +36,22 @@ class PostDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        thumbnaiUIImage.isUserInteractionEnabled = true
+        thumbnaiUIImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        guard let urlString = post?.imageUrl,  let url = URL(string: urlString) else {
+          return
+        }
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
     }
     
 }

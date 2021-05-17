@@ -115,6 +115,7 @@ extension PostListViewController : UITableViewDataSource  {
         cell.onDismiss = { [weak self] in
             self?.redditPostVM.removePost(post)
         }
+        cell.post = post
         return cell
     }
     

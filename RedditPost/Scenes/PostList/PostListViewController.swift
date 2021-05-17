@@ -7,6 +7,11 @@
 
 import UIKit
 
+
+protocol PostSelectionDelegate: class {
+  func postSelected(_ newPost: RedditPostCellViewModel)
+}
+
 class PostListViewController: UIViewController {
     
     @IBOutlet var postTableView: UITableView!
@@ -14,6 +19,7 @@ class PostListViewController: UIViewController {
     private var redditPostVM : RedditPostVM!
     private let refreshControl = UIRefreshControl()
     private let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+    weak var selectionDelegate: PostSelectionDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +38,8 @@ class PostListViewController: UIViewController {
         callToViewModelForUIUpdate()
         postTableView.delegate = self
         postTableView.dataSource = self
+        
+        splitViewController?.delegate = self
     }
     
     @objc func refreshPosts(refreshControl: UIRefreshControl) {
@@ -115,7 +123,12 @@ extension PostListViewController : UITableViewDataSource  {
 extension PostListViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedPost = redditPostVM.state.postCellViewModels[indexPath.row]
+        selectionDelegate?.postSelected(selectedPost)
         redditPostVM.postRead(position: indexPath.row)
+        if let detailVC = selectionDelegate as? PostDetailsViewController {
+          splitViewController?.showDetailViewController(detailVC, sender: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -125,8 +138,15 @@ extension PostListViewController : UITableViewDelegate {
     }
 }
 
-protocol PostCellDelegate {
-    func didPressDismiss(_ postId: Int)
+extension PostListViewController : UISplitViewControllerDelegate {
+    @available(iOS 14.0,*)
+    func splitViewController(_ svc: UISplitViewController, topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column) -> UISplitViewController.Column {
+        return .primary
+    }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+        return true
+    }
 }
 
 

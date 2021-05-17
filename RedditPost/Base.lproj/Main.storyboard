@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="39q-zE-BNJ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hxQ-6J-9qg">
-                                <rect key="frame" x="0.0" y="44" width="414" height="778"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="redditCell" id="oEI-L0-yRz">
@@ -59,16 +59,107 @@
                             <constraint firstItem="7zb-cZ-DPQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="smx-iE-Gbd"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="4RA-fw-Ia5"/>
                     <connections>
                         <outlet property="postTableView" destination="hxQ-6J-9qg" id="WXE-1I-pGy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="93.75"/>
+            <point key="canvasLocation" x="516" y="208"/>
+        </scene>
+        <!--Post Details View Controller-->
+        <scene sceneID="HQv-6R-mDY">
+            <objects>
+                <viewController id="KGq-SX-rA4" customClass="PostDetailsViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cVB-gy-Tw9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Hk-Oq-Amf">
+                                <rect key="frame" x="20" y="104" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PostPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="nbU-Q1-kLy">
+                                <rect key="frame" x="124" y="151.5" width="166" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="166" id="ANR-xE-WKe"/>
+                                    <constraint firstAttribute="height" constant="120" id="gQB-6k-WdC"/>
+                                </constraints>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9d-Fn-kHE">
+                                <rect key="frame" x="20" y="295" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="wZe-un-esn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nbU-Q1-kLy" firstAttribute="top" secondItem="6Hk-Oq-Amf" secondAttribute="bottom" constant="27" id="I7A-Cy-rHY"/>
+                            <constraint firstItem="q9d-Fn-kHE" firstAttribute="leading" secondItem="wZe-un-esn" secondAttribute="leading" constant="20" id="UjM-KM-3W4"/>
+                            <constraint firstItem="q9d-Fn-kHE" firstAttribute="centerX" secondItem="wZe-un-esn" secondAttribute="centerX" id="cY9-Iy-zQQ"/>
+                            <constraint firstItem="6Hk-Oq-Amf" firstAttribute="top" secondItem="wZe-un-esn" secondAttribute="top" constant="16" id="cZG-Si-icF"/>
+                            <constraint firstItem="wZe-un-esn" firstAttribute="trailing" secondItem="6Hk-Oq-Amf" secondAttribute="trailing" constant="20" id="dac-3y-Gl2"/>
+                            <constraint firstItem="nbU-Q1-kLy" firstAttribute="centerX" secondItem="wZe-un-esn" secondAttribute="centerX" id="nP7-Ay-Wef"/>
+                            <constraint firstItem="q9d-Fn-kHE" firstAttribute="top" secondItem="nbU-Q1-kLy" secondAttribute="bottom" constant="23.5" id="vDw-ot-mOu"/>
+                            <constraint firstItem="6Hk-Oq-Amf" firstAttribute="leading" secondItem="wZe-un-esn" secondAttribute="leading" constant="20" id="wsZ-J2-uXk"/>
+                            <constraint firstItem="wZe-un-esn" firstAttribute="trailing" secondItem="q9d-Fn-kHE" secondAttribute="trailing" constant="20" id="y9Z-oe-qAB"/>
+                            <constraint firstItem="wZe-un-esn" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="q9d-Fn-kHE" secondAttribute="bottom" id="zTl-Ig-bPi"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="y9Z-oe-qAB"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="q9d-Fn-kHE" id="GsO-eP-NaS"/>
+                        <outlet property="postNameLabel" destination="6Hk-Oq-Amf" id="3h4-sx-X7n"/>
+                        <outlet property="thumbnaiUIImage" destination="nbU-Q1-kLy" id="MPh-Ex-W96"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Roh-kg-b47" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-568.1159420289855" y="-560.49107142857144"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cNy-Zm-ygS">
+            <objects>
+                <navigationController id="36t-oi-NGB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="6v6-pt-N4a"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4WO-Sf-0dp">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="1O4-eJ-pw3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lTC-aX-iFj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-591" y="208"/>
+        </scene>
+        <!--Root Split View Controller-->
+        <scene sceneID="uwy-Vf-p8e">
+            <objects>
+                <splitViewController allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" id="39q-zE-BNJ" customClass="RootSplitViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="KGq-SX-rA4" kind="relationship" relationship="detailViewController" id="qzw-GA-XGS"/>
+                        <segue destination="36t-oi-NGB" kind="relationship" relationship="masterViewController" id="Abh-vV-Fm5"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="faM-FX-2FH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3930" y="-150"/>
         </scene>
     </scenes>
     <resources>
+        <image name="PostPlaceholder" width="64" height="64"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

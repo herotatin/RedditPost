@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol PostCellDelegate {
+    func didPressDismiss(_ postId: Int)
+}
+
+
 class RedditPostTableViewCell: UITableViewCell {
    
     @IBOutlet var unreadStatus: UIView!

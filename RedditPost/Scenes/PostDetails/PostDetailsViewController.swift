@@ -61,3 +61,23 @@ extension PostDetailsViewController : PostSelectionDelegate {
         self.post = newPost
     }
 }
+
+extension PostDetailsViewController {
+    override func encodeRestorableState(with coder: NSCoder) {
+        do {
+            let encodedVM = try PropertyListEncoder().encode(post)
+            coder.encode(encodedVM, forKey: "redditPost")
+        } catch {
+            print("Save Failed")
+        }
+        super.encodeRestorableState(with: coder)
+    }
+
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        guard let model = coder.decodeObject(forKey: "redditPost") as? RedditPostCellViewModel else {
+            return
+        }
+        self.post = model
+    }
+}

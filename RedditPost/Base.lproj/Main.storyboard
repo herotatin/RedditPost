@@ -11,7 +11,7 @@
         <!--Post List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PostListViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="postsVC" id="BYZ-38-t0r" customClass="PostListViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,7 +71,7 @@
         <!--Post Details View Controller-->
         <scene sceneID="HQv-6R-mDY">
             <objects>
-                <viewController id="KGq-SX-rA4" customClass="PostDetailsViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="postDetailsVC" id="KGq-SX-rA4" customClass="PostDetailsViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cVB-gy-Tw9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,7 +130,7 @@
         <!--Navigation Controller-->
         <scene sceneID="cNy-Zm-ygS">
             <objects>
-                <navigationController id="36t-oi-NGB" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="postNavigator" id="36t-oi-NGB" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="6v6-pt-N4a"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4WO-Sf-0dp">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -147,7 +147,7 @@
         <!--Root Split View Controller-->
         <scene sceneID="uwy-Vf-p8e">
             <objects>
-                <splitViewController allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" id="39q-zE-BNJ" customClass="RootSplitViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController restorationIdentifier="splitPost" allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" id="39q-zE-BNJ" customClass="RootSplitViewController" customModule="RedditPost" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="KGq-SX-rA4" kind="relationship" relationship="detailViewController" id="qzw-GA-XGS"/>
                         <segue destination="36t-oi-NGB" kind="relationship" relationship="masterViewController" id="Abh-vV-Fm5"/>

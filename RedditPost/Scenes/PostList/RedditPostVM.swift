@@ -8,7 +8,21 @@
 import Foundation
 
 
-class RedditPostVM : NSObject {
+class RedditPostVM : NSObject, Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case state
+    }
+      
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(state, forKey: .state)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        state = try container.decode(State.self, forKey: .state)
+    }
     
     private var apiService : APIService!
     private var nextPostId : String? = ""
@@ -28,18 +42,17 @@ class RedditPostVM : NSObject {
     
     private(set) var state = State(posts: []) {
         didSet {
-            callback(state)
+            self.callback?(state)
         }
     }
-    let callback: (State) -> ()
     
+    var callback: ((State) -> ())?
     var onErrorHandling : ((Error) -> Void)?
     var updateLoadingStatus: (()->())?
     var updateLoadingMore: (()->())?
   
-    init(_ callback: @escaping (State) -> ()) {
+    override init() {
         self.apiService =  APIService()
-        self.callback = callback
     }
     
     func getRedditPostsData() {
@@ -155,6 +168,41 @@ struct RedditPostCellViewModel {
     var read : Bool
 }
 
+extension RedditPostCellViewModel : Codable {
+    enum CodingKeys: String, CodingKey {
+        case author
+        case created
+        case image
+        case thumbnail
+        case title
+        case comments
+        case read
+     }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(authorText, forKey: .author)
+        try container.encode(createDateText, forKey: .created)
+        try container.encode(imageUrl, forKey: .image)
+        try container.encode(thumbnailUrl, forKey: .thumbnail)
+        try container.encode(titleText, forKey: .title)
+        try container.encode(commentsText, forKey: .comments)
+        try container.encode(read, forKey: .read)
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        authorText = try container.decode(String.self, forKey: .title)
+        createDateText = try container.decode(String.self, forKey: .created)
+        imageUrl = try container.decode(String.self, forKey: .image)
+        thumbnailUrl = try container.decode(String.self, forKey: .thumbnail)
+        titleText = try container.decode(String.self, forKey: .title)
+        commentsText = try container.decode(String.self, forKey: .comments)
+        read = try container.decode(Bool.self, forKey: .read)
+
+    }
+}
+
 extension RedditPostCellViewModel: Equatable {
   static func == (lhs: Self, rhs: Self) -> Bool {
     return lhs.titleText == rhs.titleText
@@ -191,5 +239,23 @@ struct State {
     init(posts: [RedditPostCellViewModel]) {
         self.postCellViewModels = posts
         self.updateAction = .refresh(posts)
+    }
+}
+
+extension State : Codable {
+    enum CodingKeys: String, CodingKey {
+        case postCellViewModels
+        case updateAction
+    }
+      
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(postCellViewModels, forKey: .postCellViewModels)
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        postCellViewModels = try container.decode([RedditPostCellViewModel].self, forKey: .postCellViewModels)
+        updateAction = .refresh(postCellViewModels)
     }
 }

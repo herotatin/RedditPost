@@ -47,7 +47,8 @@ class PostListViewController: UIViewController {
     }
     
     func callToViewModelForUIUpdate(){
-        self.redditPostVM =  RedditPostVM({ [unowned self] (state) in
+        self.redditPostVM =  RedditPostVM()
+        self.redditPostVM.callback = { [unowned self] (state) in
             
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
@@ -71,7 +72,7 @@ class PostListViewController: UIViewController {
                     self.postTableView.reloadData()
                 }
             }
-        })
+        }
         
         self.redditPostVM.onErrorHandling = { error in
             let alert = UIAlertController(title: "Oppss", message: "Something went wrong", preferredStyle: .alert)
@@ -147,6 +148,27 @@ extension PostListViewController : UISplitViewControllerDelegate {
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         return true
+    }
+}
+
+extension PostListViewController {
+    override func encodeRestorableState(with coder: NSCoder) {
+        do {
+            let encodedVM = try PropertyListEncoder().encode(redditPostVM)
+            coder.encode(encodedVM, forKey: "redditPostVM")
+        } catch {
+            print("Save Failed")
+        }
+        
+        super.encodeRestorableState(with: coder)
+    }
+
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+        guard let restorationModel = coder.decodeObject(forKey: "redditPostVM") as? RedditPostVM else {
+            return
+        }
+        self.redditPostVM = restorationModel
     }
 }
 

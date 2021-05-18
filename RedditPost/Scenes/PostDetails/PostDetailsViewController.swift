@@ -81,8 +81,6 @@ class PostDetailsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    
 }
 
 extension PostDetailsViewController : PostSelectionDelegate {

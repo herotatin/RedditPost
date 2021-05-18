@@ -47,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		F26AA4CC26536B2600A4FEC1 /* UIVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVIewController.swift; sourceTree = "<group>"; };
+		F26AA4D126537FC800A4FEC1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F2AA370C2650683900BB117C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		F2AA3713265073DB00BB117C /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		F2D29D6326522E7F000E1DDB /* PostDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 		F2AA371126506EC100BB117C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F2D29D68265240D5000E1DDB /* RootSplitViewController.swift */,
 				F2D29D6226522E4C000E1DDB /* PostDetails */,
 				F2AA371226506EF400BB117C /* PostList */,
 			);
@@ -129,6 +131,7 @@
 		F2D98B70265017AE002E4C09 = {
 			isa = PBXGroup;
 			children = (
+				F26AA4D126537FC800A4FEC1 /* README.md */,
 				F2D98B7B265017AE002E4C09 /* RedditPost */,
 				F2D98B92265017B1002E4C09 /* RedditPostTests */,
 				F2D98B9D265017B1002E4C09 /* RedditPostUITests */,
@@ -154,7 +157,6 @@
 				F2D98BC42650224D002E4C09 /* WebServices */,
 				F2D98BB026501D28002E4C09 /* Models */,
 				F2D98B7C265017AE002E4C09 /* AppDelegate.swift */,
-				F2D29D68265240D5000E1DDB /* RootSplitViewController.swift */,
 				F2D98B7E265017AE002E4C09 /* SceneDelegate.swift */,
 				F2D98B82265017AE002E4C09 /* Main.storyboard */,
 				F2D98B85265017B1002E4C09 /* Assets.xcassets */,

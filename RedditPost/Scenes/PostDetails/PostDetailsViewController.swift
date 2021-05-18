@@ -12,6 +12,7 @@ class PostDetailsViewController: UIViewController {
     @IBOutlet var postNameLabel: UILabel!
     @IBOutlet var thumbnaiUIImage: UIImageView!
     @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var btnDownloadImage: UIButton!
     
     var post: RedditPostCellViewModel? {
       didSet {
@@ -28,9 +29,15 @@ class PostDetailsViewController: UIViewController {
         postNameLabel.text = post?.authorText
         descriptionLabel.text = post?.titleText
         
-        guard let hasImage = post?.thumbnailUrl else {
+        guard let hasThumbnail = post?.thumbnailUrl else {
             return
         }
+        thumbnaiUIImage.load(urlString: hasThumbnail)
+        guard let hasImage = post?.imageUrl else {
+            return
+        }
+        print("Image", hasImage)
+        btnDownloadImage.isHidden = false
         thumbnaiUIImage.load(urlString: hasImage)
     }
 
@@ -53,6 +60,28 @@ class PostDetailsViewController: UIViewController {
             UIApplication.shared.openURL(url)
         }
     }
+    
+    
+    @IBAction func downloadImage(_ sender: Any) {
+        guard let hasImage = thumbnaiUIImage.image else {
+            return
+        }
+        
+        UIImageWriteToSavedPhotosAlbum(hasImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        var alert : UIAlertController!
+        
+        if let error = error {
+            print("ERROR: \(error)")
+            alert = self.createConfirmationAlert("Image not saved", "Unexpected error saving the post iamge")
+        }
+        alert = self.createConfirmationAlert("Image saved", "Image was saved on your gallery")
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
     
 }
 

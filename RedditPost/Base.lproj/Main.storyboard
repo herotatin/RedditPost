@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hxQ-6J-9qg">
-                                <rect key="frame" x="0.0" y="88" width="414" height="734"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="741"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="redditCell" id="oEI-L0-yRz">
@@ -31,11 +31,8 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7zb-cZ-DPQ">
-                                <rect key="frame" x="0.0" y="822" width="414" height="40"/>
+                                <rect key="frame" x="16" y="829" width="382" height="33"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Vor-Zk-Xyi"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <state key="normal" title="Dismiss All">
                                     <color key="titleColor" systemColor="systemOrangeColor"/>
@@ -48,15 +45,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="leading" secondItem="hxQ-6J-9qg" secondAttribute="trailing" constant="-414" id="2Ik-h7-nSg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hxQ-6J-9qg" secondAttribute="trailing" id="2s0-D6-vj0"/>
-                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="top" secondItem="hxQ-6J-9qg" secondAttribute="bottom" id="7oN-2o-U08"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7zb-cZ-DPQ" secondAttribute="trailing" constant="16" id="4xr-qg-dd9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hxQ-6J-9qg" secondAttribute="bottom" constant="33" id="FGp-Dh-hLc"/>
                             <constraint firstItem="hxQ-6J-9qg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FUm-lx-8bL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7zb-cZ-DPQ" secondAttribute="bottom" id="Rf0-AE-d62"/>
-                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="faF-Er-yMj"/>
+                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="b1H-Xv-EV4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7zb-cZ-DPQ" secondAttribute="bottom" id="hfB-le-crD"/>
                             <constraint firstItem="hxQ-6J-9qg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kXr-no-RtG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7zb-cZ-DPQ" secondAttribute="trailing" id="m7h-Sf-2bm"/>
-                            <constraint firstItem="7zb-cZ-DPQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="smx-iE-Gbd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4RA-fw-Ia5"/>
@@ -66,7 +61,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="208"/>
+            <point key="canvasLocation" x="515.94202898550725" y="207.58928571428569"/>
         </scene>
         <!--Post Details View Controller-->
         <scene sceneID="HQv-6R-mDY">
@@ -96,12 +91,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwX-3s-XKb">
+                                <rect key="frame" x="290" y="246.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="R0y-3Q-PxL"/>
+                                    <constraint firstAttribute="width" constant="25" id="e0e-1j-p65"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <state key="normal" image="arrow.down.app.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="downloadImage:" destination="KGq-SX-rA4" eventType="touchUpInside" id="r8p-Gk-IbW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wZe-un-esn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="cwX-3s-XKb" firstAttribute="bottom" secondItem="nbU-Q1-kLy" secondAttribute="bottom" id="49G-Bx-a3K"/>
                             <constraint firstItem="nbU-Q1-kLy" firstAttribute="top" secondItem="6Hk-Oq-Amf" secondAttribute="bottom" constant="27" id="I7A-Cy-rHY"/>
                             <constraint firstItem="q9d-Fn-kHE" firstAttribute="leading" secondItem="wZe-un-esn" secondAttribute="leading" constant="20" id="UjM-KM-3W4"/>
+                            <constraint firstItem="cwX-3s-XKb" firstAttribute="leading" secondItem="nbU-Q1-kLy" secondAttribute="trailing" id="XlF-kX-RbI"/>
                             <constraint firstItem="q9d-Fn-kHE" firstAttribute="centerX" secondItem="wZe-un-esn" secondAttribute="centerX" id="cY9-Iy-zQQ"/>
                             <constraint firstItem="6Hk-Oq-Amf" firstAttribute="top" secondItem="wZe-un-esn" secondAttribute="top" constant="16" id="cZG-Si-icF"/>
                             <constraint firstItem="wZe-un-esn" firstAttribute="trailing" secondItem="6Hk-Oq-Amf" secondAttribute="trailing" constant="20" id="dac-3y-Gl2"/>
@@ -118,6 +127,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="btnDownloadImage" destination="cwX-3s-XKb" id="oZO-vf-P6M"/>
                         <outlet property="descriptionLabel" destination="q9d-Fn-kHE" id="GsO-eP-NaS"/>
                         <outlet property="postNameLabel" destination="6Hk-Oq-Amf" id="3h4-sx-X7n"/>
                         <outlet property="thumbnaiUIImage" destination="nbU-Q1-kLy" id="MPh-Ex-W96"/>
@@ -160,6 +170,7 @@
     </scenes>
     <resources>
         <image name="PostPlaceholder" width="64" height="64"/>
+        <image name="arrow.down.app.fill" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

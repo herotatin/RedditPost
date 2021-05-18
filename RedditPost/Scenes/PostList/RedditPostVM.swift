@@ -114,10 +114,12 @@ class RedditPostVM : NSObject, Codable {
     
     private func createCellViewModel( post: RedditPost ) -> RedditPostCellViewModel {
         
+        let image = post.imageURL
+        let replacedImg = image.replacingOccurrences(of: ".gifv", with: ".gif")
 
         return RedditPostCellViewModel( authorText: post.author,
                                         createDateText: post.creationDate.timeAgoDisplay(),
-                                       imageUrl: post.imageURL,
+                                       imageUrl: replacedImg,
                                        thumbnailUrl: post.thumbnailURL,
                                        titleText: post.title,
                                        commentsText: "\(post.commentsCount) comments",
